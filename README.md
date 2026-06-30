@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pandit Hire Website
+
+A modern, mobile-friendly website for a Pandit hire business. Built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- Home, Services, Service Detail, About, and Contact pages
+- Click-to-call and WhatsApp inquiry buttons
+- Sticky mobile contact bar
+- FAQ accordion
+- SEO-friendly with sitemap, robots.txt, and schema markup
+- Google Analytics support
+- Fully responsive (mobile-first)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit the following files to customize business details:
 
-## Learn More
+- `data/businessInfo.ts` — Phone numbers, email, service areas, working hours
+- `data/services.ts` — Add, remove, or modify puja services
+- `data/faqs.ts` — Update FAQ content
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a `.env.local` file:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+NEXT_PUBLIC_PHONE_NUMBER=+919999999999
+NEXT_PUBLIC_WHATSAPP_NUMBER=919999999999
+NEXT_PUBLIC_SITE_URL=https://pandithire.com
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
 
-## Deploy on Vercel
+## Build
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run build
+npm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+Recommended: Deploy to Vercel with one click.

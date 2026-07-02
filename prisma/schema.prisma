@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         String    @default("admin")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  @@map("users")
+}
+
+model CustomerInquiry {
+  id                String    @id @default(uuid())
+  name              String
+  phone             String
+  whatsapp          String?
+  serviceType       String?   @map("service_type")
+  preferredDate     String?   @map("preferred_date")
+  preferredTime     String?   @map("preferred_time")
+  location          String?
+  city              String?
+  languagePref      String?   @map("language_preference")
+  samagriRequired   String?   @map("samagri_required")
+  message           String?
+  status            String    @default("new")
+  assignedPanditId  String?   @map("assigned_pandit_id")
+  adminNotes        String?   @map("admin_notes")
+  source            String?   
+  phoneVerified     Boolean   @default(false) @map("phone_verified")
+  phoneVerifiedAt   DateTime? @map("phone_verified_at")
+  otpReferenceId    String?   @map("otp_reference_id")
+  lang              String?   
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  @@map("customer_inquiries")
+}
+
+model Pandit {
+  id                  String    @id @default(uuid())
+  fullName            String    @map("full_name")
+  fatherName          String?   @map("father_name")
+  dateOfBirth         String?   @map("date_of_birth")
+  age                 Int?
+  mobile              String
+  whatsapp            String?
+  email               String?
+  address             String?
+  city                String
+  state               String?
+  pinCode             String?   @map("pin_code")
+  mainSpecialization  String    @map("main_specialization")
+  otherServices       String?   @map("other_services")
+  experienceYears     Int?      @map("experience_years")
+  languagesKnown      String    @map("languages_known")
+  availableHomeVisit  Boolean?  @default(true) @map("available_home_visit")
+  willingToTravel     Boolean?  @default(true) @map("willing_to_travel")
+  serviceAreas        String?   @map("service_areas")
+  workHours           String?   @map("work_hours")
+  expectedDakshina    String?   @map("expected_dakshina")
+  profilePhotoUrl     String?   @map("profile_photo_url")
+  aadhaarDocUrl       String?   @map("aadhaar_document_url")
+  otherDocUrl         String?   @map("other_document_url")
+  status              String    @default("pending_review")
+  adminNotes          String?   @map("admin_notes")
+  phoneVerified       Boolean   @default(false) @map("phone_verified")
+  phoneVerifiedAt     DateTime? @map("phone_verified_at")
+  otpReferenceId      String?   @map("otp_reference_id")
+  rating              Decimal?  @default(0)
+  totalBookings       Int       @default(0) @map("total_bookings")
+  lang                String?   
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+  @@map("pandits")
+}
+
+model RishtaLead {
+  id              String    @id @default(uuid())
+  forSelf         String    @map("for_self")
+  name            String
+  phone           String
+  email           String?
+  dateOfBirth     String?   @map("date_of_birth")
+  education       String?
+  location        String?
+  status          String    @default("new")
+  adminNotes      String?   @map("admin_notes")
+  phoneVerified   Boolean   @default(false) @map("phone_verified")
+  phoneVerifiedAt DateTime? @map("phone_verified_at")
+  otpReferenceId  String?   @map("otp_reference_id")
+  lang            String?   
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  @@map("rishta_leads")
+}
+
+model BhajanKirtanLead {
+  id              String    @id @default(uuid())
+  name            String
+  phone           String
+  serviceType     String    @map("service_type")
+  preferredDate   String?   @map("preferred_date")
+  location        String?
+  city            String?
+  message         String?
+  status          String    @default("new")
+  adminNotes      String?   @map("admin_notes")
+  phoneVerified   Boolean   @default(false) @map("phone_verified")
+  phoneVerifiedAt DateTime? @map("phone_verified_at")
+  otpReferenceId  String?   @map("otp_reference_id")
+  lang            String?   
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  @@map("bhajan_kirtan_leads")
+}
+
+model OtpRecord {
+  id          String   @id @default(uuid())
+  phone       String
+  otp         String
+  referenceId String   @unique @map("reference_id")
+  verified    Boolean  @default(false)
+  expiresAt   DateTime @map("expires_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  @@map("otp_records")
+}

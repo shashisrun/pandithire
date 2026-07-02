@@ -1,17 +1,21 @@
 "use client";
 
 import { businessInfo } from "@/data/businessInfo";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  dict: Dictionary;
+}
+
+export default function ContactForm({ dict }: ContactFormProps) {
+  const c = dict.common;
+
   return (
     <div>
       <h2 className="text-2xl font-bold text-maroon-dark mb-6">
-        Send a Quick Inquiry
+        {c.sendInquiry}
       </h2>
-      <p className="text-gray-600 text-sm mb-6">
-        Fill this form and we will contact you. Or simply call or WhatsApp us
-        for faster response.
-      </p>
+      <p className="text-gray-600 text-sm mb-6">{c.inquiryFormNote}</p>
       <form
         className="space-y-4"
         onSubmit={(e) => {
@@ -38,7 +42,7 @@ export default function ContactForm() {
             htmlFor="name"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Name
+            {c.name}
           </label>
           <input
             type="text"
@@ -46,7 +50,7 @@ export default function ContactForm() {
             name="name"
             required
             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-saffron/30 focus:border-saffron outline-none text-sm"
-            placeholder="Your full name"
+            placeholder={c.yourFullName}
           />
         </div>
         <div>
@@ -54,7 +58,7 @@ export default function ContactForm() {
             htmlFor="phone"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Phone Number
+            {c.phoneNumber}
           </label>
           <input
             type="tel"
@@ -62,7 +66,7 @@ export default function ContactForm() {
             name="phone"
             required
             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-saffron/30 focus:border-saffron outline-none text-sm"
-            placeholder="Your phone number"
+            placeholder={c.yourPhoneNumber}
           />
         </div>
         <div>
@@ -70,7 +74,7 @@ export default function ContactForm() {
             htmlFor="service"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Puja Type
+            {c.pujaType}
           </label>
           <input
             type="text"
@@ -86,7 +90,7 @@ export default function ContactForm() {
             htmlFor="location"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Location
+            {c.location}
           </label>
           <input
             type="text"
@@ -101,12 +105,11 @@ export default function ContactForm() {
           type="submit"
           className="w-full px-6 py-3 bg-green-600 text-white rounded-full font-semibold text-sm hover:bg-green-700 transition-colors"
         >
-          Send via WhatsApp
+          {c.sendViaWhatsApp}
         </button>
       </form>
       <p className="text-xs text-gray-400 mt-3 text-center">
-        Your inquiry will be sent as a WhatsApp message. You can also call us
-        directly.
+        {c.inquirySentNote}
       </p>
     </div>
   );

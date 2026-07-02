@@ -1,14 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import type { FAQ as FAQType } from "@/data/faqs";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-export default function FAQ({ items }: { items: FAQType[] }) {
+interface FAQProps {
+  dict: Dictionary;
+}
+
+export default function FAQ({ dict }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const faqs = dict.faqs;
 
   return (
     <div className="max-w-3xl mx-auto divide-y divide-gray-200">
-      {items.map((faq, index) => (
+      {faqs.map((faq, index) => (
         <div key={index} className="py-4">
           <button
             className="w-full text-left flex items-center justify-between gap-4"

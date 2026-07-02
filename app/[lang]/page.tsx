@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { validateLang, defaultLang } from "@/lib/i18n/types";
@@ -93,12 +92,11 @@ export default async function HomePage({ params }: Props) {
     <>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-maroon via-saffron-dark to-primary-dark py-20 sm:py-28 overflow-hidden">
-        <Image
+        <img
           src="/images/home_banner.png"
           alt="Pandit performing havan with puja thali"
-          fill
-          className="object-cover opacity-30 mix-blend-overlay"
-          priority
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          style={{ mixBlendMode: "overlay" }}
         />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-gold blur-3xl" />
@@ -168,8 +166,8 @@ export default async function HomePage({ params }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {bhajanKirtanCards.map((card) => (
               <div key={card.title} className={`rounded-2xl overflow-hidden bg-gradient-to-br ${card.color} border border-gray-200 hover:shadow-xl transition-all duration-300`}>
-                <div className="relative h-48">
-                  <Image src={card.img} alt={card.title} fill className="object-cover" />
+                <div className="h-48">
+                  <img src={card.img} alt={card.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-bold text-primary-dark mb-3">{card.title}</h3>
@@ -190,8 +188,8 @@ export default async function HomePage({ params }: Props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pandits.map((p) => (
               <div key={p.name} className="bg-cream/50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 text-center">
-                <div className="relative h-48 bg-saffron/5 flex items-center justify-center">
-                  <Image src="/images/pandit-profile-card.png" alt={p.name} fill className="object-cover" />
+                <div className="h-48 bg-saffron/5">
+                  <img src="/images/pandit-profile-card.png" alt={p.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-5">
                   <h3 className="font-bold text-primary-dark">{p.name}</h3>
@@ -218,8 +216,8 @@ export default async function HomePage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
-              <div className="relative h-64 sm:h-80 mb-6 rounded-2xl overflow-hidden shadow-lg">
-                <Image src="/images/vivah-sewa.png" alt="Vivah Seva - Hindu Wedding" fill className="object-cover" />
+              <div className="h-64 sm:h-80 mb-6 rounded-2xl overflow-hidden shadow-lg">
+                <img src="/images/vivah-sewa.png" alt="Vivah Seva - Hindu Wedding" className="w-full h-full object-cover" />
               </div>
               <h2 className="text-3xl font-bold text-white mb-2">विवाह सेवा</h2>
               <p className="text-gold-light text-lg font-semibold mb-4">हम करते हैं आपका शुभ विवाह</p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { validateLang, defaultLang } from "@/lib/i18n/types";
@@ -6,6 +7,7 @@ import { businessInfo, phoneLink, whatsappLink } from "@/data/businessInfo";
 import { popularServices, services } from "@/data/services";
 import ServiceCard from "@/components/ServiceCard";
 import FAQ from "@/components/FAQ";
+import RishtaForm from "@/components/RishtaForm";
 import {
   IconGrihaPravesh, IconNaamkaran, IconHavan, IconBhoomiPuja,
   IconShraddh, IconSamagri, IconJyotish, IconOtherServices,
@@ -41,21 +43,21 @@ const bhajanKirtanCards = [
     desc: "भक्ति भजन से मन को शांति मिले और घर में सुख-समृद्धि का वास हो।",
     cta: "भजन बुक करें",
     color: "from-amber-50 to-orange-50",
-    icon: "🎵",
+    img: "/images/bhajan-card.png",
   },
   {
     title: "कीर्तन",
     desc: "हरि नाम संकीर्तन से सभी दुख दूर हों और जीवन में खुशहाली आए।",
     cta: "कीर्तन बुक करें",
     color: "from-yellow-50 to-amber-50",
-    icon: "🪘",
+    img: "/images/kirtan-card.png",
   },
   {
     title: "सुंदरकांड पाठ",
     desc: "सुंदरकांड पाठ से संकटों का नाश होता है और हनुमान जी की कृपा प्राप्त होती है।",
     cta: "पाठ बुक करें",
     color: "from-orange-50 to-red-50",
-    icon: "📿",
+    img: "/images/sundarkand-path.png",
   },
 ];
 
@@ -91,6 +93,13 @@ export default async function HomePage({ params }: Props) {
     <>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-maroon via-saffron-dark to-primary-dark py-20 sm:py-28 overflow-hidden">
+        <Image
+          src="/images/home_banner.png"
+          alt="Pandit performing havan with puja thali"
+          fill
+          className="object-cover opacity-30 mix-blend-overlay"
+          priority
+        />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-gold blur-3xl" />
           <div className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-gold-light blur-3xl" />
@@ -158,11 +167,15 @@ export default async function HomePage({ params }: Props) {
           <p className="text-gray-500 text-center mb-12">अपने घर में भक्ति और शांति का वातावरण बनाएं</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {bhajanKirtanCards.map((card) => (
-              <div key={card.title} className={`rounded-2xl p-8 bg-gradient-to-br ${card.color} border border-gray-200 text-center hover:shadow-xl transition-all duration-300`}>
-                <div className="text-5xl mb-4">{card.icon}</div>
-                <h3 className="text-xl font-bold text-primary-dark mb-3">{card.title}</h3>
-                <p className="text-gray-600 text-sm mb-6 leading-relaxed">{card.desc}</p>
-                <Link href={`/${lang}/book-pandit`} className="inline-block px-6 py-2.5 bg-saffron text-white rounded-full font-semibold text-sm hover:bg-saffron-dark transition-colors">{card.cta}</Link>
+              <div key={card.title} className={`rounded-2xl overflow-hidden bg-gradient-to-br ${card.color} border border-gray-200 hover:shadow-xl transition-all duration-300`}>
+                <div className="relative h-48">
+                  <Image src={card.img} alt={card.title} fill className="object-cover" />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-bold text-primary-dark mb-3">{card.title}</h3>
+                  <p className="text-gray-600 text-sm mb-6 leading-relaxed">{card.desc}</p>
+                  <Link href={`/${lang}/book-pandit`} className="inline-block px-6 py-2.5 bg-saffron text-white rounded-full font-semibold text-sm hover:bg-saffron-dark transition-colors">{card.cta}</Link>
+                </div>
               </div>
             ))}
           </div>
@@ -176,17 +189,21 @@ export default async function HomePage({ params }: Props) {
           <p className="text-gray-500 text-center mb-12">वर्षों के अनुभव वाले प्रमाणित पंडित</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pandits.map((p) => (
-              <div key={p.name} className="bg-cream/50 rounded-2xl p-6 text-center border border-gray-100 hover:shadow-lg transition-all duration-300">
-                <div className="w-20 h-20 rounded-full bg-saffron/10 mx-auto mb-4 flex items-center justify-center text-3xl">🙏</div>
-                <h3 className="font-bold text-primary-dark">{p.name}</h3>
-                <p className="text-xs text-saffron font-medium mt-1">{p.exp} अनुभव</p>
-                <p className="text-xs text-gray-500 mt-2">{p.spec}</p>
-                <div className="flex items-center justify-center gap-1 mt-3">
-                  <span className="text-yellow-500 text-sm">★★★★★</span>
-                  <span className="text-xs text-gray-500 ml-1">{p.rating}</span>
+              <div key={p.name} className="bg-cream/50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 text-center">
+                <div className="relative h-48 bg-saffron/5 flex items-center justify-center">
+                  <Image src="/images/pandit-profile-card.png" alt={p.name} fill className="object-cover" />
                 </div>
-                <p className="text-xs text-gray-400 mt-1">{p.city} · {p.bookings}+ बुकिंग</p>
-                <button className="mt-4 text-sm text-saffron font-medium hover:text-saffron-dark">जानकारी देखें</button>
+                <div className="p-5">
+                  <h3 className="font-bold text-primary-dark">{p.name}</h3>
+                  <p className="text-xs text-saffron font-medium mt-1">{p.exp} अनुभव</p>
+                  <p className="text-xs text-gray-500 mt-2">{p.spec}</p>
+                  <div className="flex items-center justify-center gap-1 mt-3">
+                    <span className="text-yellow-500 text-sm">★★★★★</span>
+                    <span className="text-xs text-gray-500 ml-1">{p.rating}</span>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1">{p.city} · {p.bookings}+ बुकिंग</p>
+                  <button className="mt-4 text-sm text-saffron font-medium hover:text-saffron-dark">जानकारी देखें</button>
+                </div>
               </div>
             ))}
           </div>
@@ -199,59 +216,28 @@ export default async function HomePage({ params }: Props) {
       {/* Vivah Seva Section */}
       <section className="py-16 bg-gradient-to-br from-maroon-dark to-maroon">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="text-white">
-              <h2 className="text-3xl font-bold mb-2">विवाह सेवा</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <div className="relative h-64 sm:h-80 mb-6 rounded-2xl overflow-hidden shadow-lg">
+                <Image src="/images/vivah-sewa.png" alt="Vivah Seva - Hindu Wedding" fill className="object-cover" />
+              </div>
+              <h2 className="text-3xl font-bold text-white mb-2">विवाह सेवा</h2>
               <p className="text-gold-light text-lg font-semibold mb-4">हम करते हैं आपका शुभ विवाह</p>
               <p className="text-white/80 text-sm leading-relaxed mb-6">
                 यदि आप अपने परिवार के लिए विवाह संस्कार और अनुभवी आचार्य की तलाश में हैं, तो PanditHire.in आपकी मदद के लिए है।
               </p>
-              <ul className="space-y-3 text-sm">
+              <ul className="space-y-3 text-sm mb-8">
                 {["वेरिफाइड वर और वधु की जानकारी", "कुंडली मिलान सुविधा", "रिश्ता चयन सहायता", "विवाह पूजा और संस्कार", "ऑनलाइन सहायता और मार्गदर्शन"].map((item) => (
                   <li key={item} className="flex items-center gap-2 text-white/90">
                     <span className="text-gold">✓</span> {item}
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 flex gap-4">
-                <Link href={`/${lang}/register`} className="px-6 py-3 bg-gold text-white rounded-full font-semibold hover:bg-gold-light transition-colors">रजिस्टर करें</Link>
-                <button className="px-6 py-3 border border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-colors">रिश्ते देखें</button>
-              </div>
             </div>
 
-            {/* Rishta Registration Form */}
             <div className="bg-white rounded-2xl p-8 shadow-xl">
               <h3 className="text-xl font-bold text-primary-dark mb-6 text-center">रिश्ता पंजीकरण</h3>
-              <form className="space-y-4" onSubmit={(e) => {
-                e.preventDefault();
-                const f = e.currentTarget;
-                const d = (id: string) => (f.elements.namedItem(id) as HTMLInputElement)?.value || "";
-                const msg = `*Rishta Registration*
-For: ${d("forSelf")}
-Name: ${d("name")}
-Phone: ${d("phone")}
-Email: ${d("email")}
-DOB: ${d("dob")}
-Education: ${d("education")}
-Location: ${d("location")}`;
-                window.open(`https://wa.me/${businessInfo.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank");
-              }}>
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer flex-1">
-                    <input type="radio" name="forSelf" value="लड़का" defaultChecked className="text-saffron" /><span className="text-sm">मैं लड़का हूं</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer flex-1">
-                    <input type="radio" name="forSelf" value="लड़की" className="text-saffron" /><span className="text-sm">मैं लड़की हूं</span>
-                  </label>
-                </div>
-                <input type="text" name="name" placeholder="नाम" required className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-saffron/30 outline-none" />
-                <input type="tel" name="phone" placeholder="मोबाइल नंबर" required className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-saffron/30 outline-none" />
-                <input type="email" name="email" placeholder="ईमेल" className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-saffron/30 outline-none" />
-                <input type="date" name="dob" placeholder="जन्म तिथि" className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-saffron/30 outline-none" />
-                <input type="text" name="education" placeholder="शिक्षा" className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-saffron/30 outline-none" />
-                <input type="text" name="location" placeholder="स्थान" required className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-saffron/30 outline-none" />
-                <button type="submit" className="w-full px-6 py-3 bg-saffron text-white rounded-full font-bold hover:bg-saffron-dark transition-colors">पंजीकरण करें</button>
-              </form>
+              <RishtaForm />
             </div>
           </div>
         </div>
